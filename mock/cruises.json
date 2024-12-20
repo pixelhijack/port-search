@@ -1,0 +1,17 @@
+[
+    {
+      "cruise_id": 1,
+      "name": "Cruise 1",
+      "ports_of_call": [1, 2]
+    },
+    {
+      "cruise_id": 2,
+      "name": "Cruise 2",
+      "ports_of_call": [2, 3]
+    },
+    {
+      "cruise_id": 3,
+      "name": "Cruise 3",
+      "ports_of_call": [1, 3]
+    }
+  ]

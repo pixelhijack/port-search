@@ -1,0 +1,22 @@
+[
+    {
+      "port_id": 1,
+      "name": "Aarhus",
+      "raw_names": ["Aahrus", "Aarhus", "Aarhus - Denmark", "Aarhus, Denmark"]
+    },
+    {
+      "port_id": 2,
+      "name": "Abu Dhabi",
+      "raw_names": [
+        "Abu Dhabi",
+        "Abu Dhabi, UAE",
+        "Abu Dhabi, United Arab Emirates",
+        "Abu Dhabi,U.Arab Emirates"
+      ]
+    },
+    {
+      "port_id": 3,
+      "name": "Adelaide",
+      "raw_names": ["Adelaide", "Adelaide - Australia", "Adelaide, Australia"]
+    }
+  ]
