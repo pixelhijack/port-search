@@ -2,10 +2,23 @@
 import { useEffect, useState } from 'react';
 import styles from "./page.module.css";
 
+interface Ports {
+  port_id: number;
+  name: string;
+  raw_names: string[];
+}
+
+interface PortsApiResponse {
+  message: string;
+  data: Ports[];
+  [key: string]: any; // Allow additional properties if needed
+}
+
+
 export default function Home() {
 
-  const [ports, setPorts] = useState(null); 
-  const [error, setError] = useState(null); 
+  const [ports, setPorts] = useState<PortsApiResponse | null>(null);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     async function fetchPorts() {
@@ -16,8 +29,8 @@ export default function Home() {
         }
         const result = await response.json();
         setPorts(result);
-      } catch (err: any) {
-        setError(err.message);
+      } catch (err) {
+        setError((err as Error).message);
       }
     }
 
