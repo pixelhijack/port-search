@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import styles from "./page.module.css";
 import CheckList from './components/checklist';
 
-interface Ports {
+interface Port {
   port_id: number;
   name: string;
   raw_names: string[];
@@ -11,14 +11,25 @@ interface Ports {
 
 interface PortsApiResponse {
   message: string;
-  data: Ports[];
-  [key: string]: any; // Allow additional properties if needed
+  data: Port[];
+}
+
+interface Cruise {
+  cruise_id: number;
+  name: string;
+  ports_of_call: number[];
+}
+
+interface CruisesApiResponse {
+  message: string;
+  data: Cruise[];
 }
 
 
 export default function Home() {
 
-  const [ports, setPorts] = useState<PortsApiResponse | null>(null);
+  const [ports, setPorts] = useState<Port[] | null>(null);
+  const [cruises, setCruises] = useState<Cruise[] | null>(null);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
@@ -26,7 +37,7 @@ export default function Home() {
       try {
         const response = await fetch('/api/ports');
         if (!response.ok) {
-          throw new Error('Network response was not ok');
+          throw new Error('[PORTS] Network response was not ok');
         }
         const result = await response.json();
         setPorts(result.data);
@@ -38,19 +49,43 @@ export default function Home() {
     fetchPorts(); 
   }, []);
 
+  useEffect(() => {
+    async function fetchCruises() {
+      try {
+        const response = await fetch('/api/cruises');
+        if (!response.ok) {
+          throw new Error('[CRUISES] Network response was not ok');
+        }
+        const result = await response.json();
+        setCruises(result.data);
+      } catch (err) {
+        setError((err as Error).message);
+      }
+    }
+
+    fetchCruises(); 
+  }, []);
+
   return (
     <div className={styles.page}>
       <main className={styles.main}>
         <h1>Main</h1>
+          <h2>Ports</h2>
           {error && <p>Error: {error}</p>}
           {ports && (
-            <CheckList items={ports.map((port: any) => port.name)} onSelect={(selected) => console.log('selected', selected)}/>
+            <CheckList items={ports.map((port: Port) => port.name)} onSelect={(selected) => console.log('selected', selected)}/>
           )}
           <hr/>
           {ports ? (
             <pre>{JSON.stringify(ports, null, 2)}</pre>
           ) : (
-            <p>Loading...</p>
+            <p>Loading ports...</p>
+          )}
+          <hr/>
+          {cruises ? (
+            <pre>{JSON.stringify(cruises, null, 2)}</pre>
+          ) : (
+            <p>Loading cruises...</p>
           )}
       </main>
       <footer className={styles.footer}>
