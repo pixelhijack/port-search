@@ -1,6 +1,7 @@
 'use client';
 import { useEffect, useState } from 'react';
 import styles from "./page.module.css";
+import CheckList from './components/checklist';
 
 interface Ports {
   port_id: number;
@@ -28,7 +29,7 @@ export default function Home() {
           throw new Error('Network response was not ok');
         }
         const result = await response.json();
-        setPorts(result);
+        setPorts(result.data);
       } catch (err) {
         setError((err as Error).message);
       }
@@ -42,6 +43,10 @@ export default function Home() {
       <main className={styles.main}>
         <h1>Main</h1>
           {error && <p>Error: {error}</p>}
+          {ports && (
+            <CheckList items={ports.map((port: any) => port.name)} onSelect={(selected) => console.log('selected', selected)}/>
+          )}
+          <hr/>
           {ports ? (
             <pre>{JSON.stringify(ports, null, 2)}</pre>
           ) : (
@@ -49,7 +54,7 @@ export default function Home() {
           )}
       </main>
       <footer className={styles.footer}>
-        Footer
+        <h2>Footer</h2>
       </footer>
     </div>
   );
