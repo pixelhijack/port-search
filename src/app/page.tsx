@@ -29,9 +29,17 @@ interface CruisesApiResponse {
 export default function Home() {
 
   const [ports, setPorts] = useState<Port[] | null>(null);
-  const [cruises, setCruises] = useState<Cruise[] | null>(null);
+  const [cruises, setCruises] = useState<Cruise[] | []>([]);
   const [error, setError] = useState<string | null>(null);
   const [selectedPorts, setSelectedPorts] = useState<Port[] | []>([]);
+  
+  // derived props
+  const selectedPortIds = selectedPorts.map(port => port.port_id);
+  const cruisesByPorts = selectedPorts.length > 1 ? cruises.filter(
+    cruise => cruise.ports_of_call.every(id => selectedPortIds.includes(id))
+  ) : cruises.filter(
+    cruise => cruise.ports_of_call.some(id => selectedPortIds.includes(id))
+  );
 
   useEffect(() => {
     async function fetchPorts() {
@@ -84,9 +92,7 @@ export default function Home() {
             <div className='column'>
               <h2>Cruises</h2>
               {cruises && (
-                cruises.filter(
-                  cruise => cruise.ports_of_call.some(id => selectedPorts.map(port => port.port_id).includes(id))
-                ).map(
+                cruisesByPorts.map(
                   cruise => (<div key={cruise.cruise_id}>{cruise.name}</div>)
                 )
               )}
