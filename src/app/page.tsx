@@ -28,18 +28,28 @@ interface CruisesApiResponse {
 
 export default function Home() {
 
-  const [ports, setPorts] = useState<Port[] | null>(null);
+  /* STATE */
+  const [ports, setPorts] = useState<Port[] | []>([]);
   const [cruises, setCruises] = useState<Cruise[] | []>([]);
   const [error, setError] = useState<string | null>(null);
   const [selectedPorts, setSelectedPorts] = useState<Port[] | []>([]);
+  const [searchTerm, setSearchTerm] = useState<string>('');
   
-  // derived props
+  /* DERIVED PROPS */
   const selectedPortIds = selectedPorts.map(port => port.port_id);
+  // one port selected: lists all cruise occurences with that port,
+  // two/multiple ports selected: narrow down to only show that contains both
   const cruisesByPorts = selectedPorts.length > 1 ? cruises.filter(
     cruise => cruise.ports_of_call.every(id => selectedPortIds.includes(id))
   ) : cruises.filter(
     cruise => cruise.ports_of_call.some(id => selectedPortIds.includes(id))
   );
+  // ports by search term
+  const filteredPorts = searchTerm ? ports.filter(
+    port => port.raw_names.some(
+      rawName => rawName.toLowerCase().includes(searchTerm.toLowerCase())
+    )
+  ) : ports;
 
   useEffect(() => {
     async function fetchPorts() {
@@ -75,16 +85,25 @@ export default function Home() {
     fetchCruises(); 
   }, []);
 
+  console.log(ports, cruises);
+
   return (
     <div className={styles.page}>
       <main className={styles.main}>
-        <h1>Main</h1>
+        <h1>Port name search</h1>
+        <input
+          type="text"
+          placeholder="Search ports..."
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          className="search-input"
+        />
           <div className='row'>
             <div className='column'>
             <h2>Ports</h2>
               {ports && (
                 <CheckList 
-                  items={ports.map((port: Port) => port.name)} 
+                  items={filteredPorts.map((port: Port) => port.name)} 
                   onSelect={(selectedNames) => setSelectedPorts(ports.filter(port => selectedNames.includes(port.name)))}
                 />
               )}
@@ -100,21 +119,7 @@ export default function Home() {
           </div>
           <hr/>
           {error && <p>Error: {error}</p>}
-          {ports ? (
-            <pre>{JSON.stringify(ports, null, 2)}</pre>
-          ) : (
-            <p>Loading ports...</p>
-          )}
-          <hr/>
-          {cruises ? (
-            <pre>{JSON.stringify(cruises, null, 2)}</pre>
-          ) : (
-            <p>Loading cruises...</p>
-          )}
       </main>
-      <footer className={styles.footer}>
-        <h2>Footer</h2>
-      </footer>
     </div>
   );
 }
