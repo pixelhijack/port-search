@@ -24,7 +24,7 @@ function CheckList({ items = [], onSelect }: CheckListProps) {
   };
 
   return (
-    <div>
+    <div className='checklist'>
       <ul>
         {items.map((item, index) => (
           <li key={index}>

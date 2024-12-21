@@ -68,3 +68,11 @@ input[type="checkbox"] {
   border: 1px solid #ccc;
   border-radius: 4px;
 }
+
+.checklist li {
+  list-style-type: none;
+}
+
+.cruises {
+  cursor: pointer;
+}

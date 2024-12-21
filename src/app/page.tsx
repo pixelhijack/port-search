@@ -1,5 +1,6 @@
 'use client';
 import { useEffect, useState } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
 import styles from "./page.module.css";
 import CheckList from './components/checklist';
 
@@ -29,11 +30,17 @@ interface CruisesApiResponse {
 export default function Home() {
 
   /* STATE */
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  
   const [ports, setPorts] = useState<Port[] | []>([]);
   const [cruises, setCruises] = useState<Cruise[] | []>([]);
   const [error, setError] = useState<string | null>(null);
   const [selectedPorts, setSelectedPorts] = useState<Port[] | []>([]);
   const [searchTerm, setSearchTerm] = useState<string>('');
+  
+  const [selectedCruise, setSelectedCruise] = useState<Cruise | null>(null);
+  const selectedCruiseId = searchParams && searchParams.get('cruise') as string | undefined;
   
   /* DERIVED PROPS */
   const selectedPortIds = selectedPorts.map(port => port.port_id);
@@ -85,6 +92,10 @@ export default function Home() {
     fetchCruises(); 
   }, []);
 
+  const handleSelectCruise = (cruiseId: number) => {
+    router.push({ pathname: '/', query: { cruise: cruiseId } }, undefined, { shallow: true });
+  };
+
   console.log(ports, cruises);
 
   return (
@@ -112,7 +123,9 @@ export default function Home() {
               <h2>Cruises</h2>
               {cruises && (
                 cruisesByPorts.map(
-                  cruise => (<div key={cruise.cruise_id}>{cruise.name}</div>)
+                  cruise => (
+                    <div className='cruises' key={cruise.cruise_id} onClick={() => handleSelectCruise(cruise.cruise_id)}>{cruise.name}</div>
+                  )
                 )
               )}
             </div>
