@@ -31,6 +31,7 @@ export default function Home() {
   const [ports, setPorts] = useState<Port[] | null>(null);
   const [cruises, setCruises] = useState<Cruise[] | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [selectedPorts, setSelectedPorts] = useState<Port[] | []>([]);
 
   useEffect(() => {
     async function fetchPorts() {
@@ -70,12 +71,29 @@ export default function Home() {
     <div className={styles.page}>
       <main className={styles.main}>
         <h1>Main</h1>
-          <h2>Ports</h2>
-          {error && <p>Error: {error}</p>}
-          {ports && (
-            <CheckList items={ports.map((port: Port) => port.name)} onSelect={(selected) => console.log('selected', selected)}/>
-          )}
+          <div className='row'>
+            <div className='column'>
+            <h2>Ports</h2>
+              {ports && (
+                <CheckList 
+                  items={ports.map((port: Port) => port.name)} 
+                  onSelect={(selectedNames) => setSelectedPorts(ports.filter(port => selectedNames.includes(port.name)))}
+                />
+              )}
+            </div>
+            <div className='column'>
+              <h2>Cruises</h2>
+              {cruises && (
+                cruises.filter(
+                  cruise => cruise.ports_of_call.some(id => selectedPorts.map(port => port.port_id).includes(id))
+                ).map(
+                  cruise => (<div key={cruise.cruise_id}>{cruise.name}</div>)
+                )
+              )}
+            </div>
+          </div>
           <hr/>
+          {error && <p>Error: {error}</p>}
           {ports ? (
             <pre>{JSON.stringify(ports, null, 2)}</pre>
           ) : (
