@@ -1,0 +1,6 @@
+{
+    "project_name": "Port name search",
+    "input_placeholder": "Search ports...",
+    "ports_column_header": "Ports",
+    "cruises_column_header": "Cruises"
+}

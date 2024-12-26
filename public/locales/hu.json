@@ -1,0 +1,6 @@
+{
+    "project_name": "Kikötő név kereső",
+    "input_placeholder": "Keress kikötőkre...",
+    "ports_column_header": "Kikötők",
+    "cruises_column_header": "Hajójáratok"
+}
