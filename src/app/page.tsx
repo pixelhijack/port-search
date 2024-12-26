@@ -17,7 +17,7 @@ interface PortsApiResponse {
 interface Cruise {
   cruise_id: number;
   name: string;
-  ports_of_call: number[];
+  stops: number[];
 }
 
 interface CruisesApiResponse {
@@ -40,9 +40,9 @@ export default function Home() {
   // one port selected: lists all cruise occurences with that port,
   // two/multiple ports selected: narrow down to only show that contains both
   const cruisesByPorts = selectedPorts.length > 1 ? cruises.filter(
-    cruise => cruise.ports_of_call.every(id => selectedPortIds.includes(id))
+    cruise => cruise.stops.every(id => selectedPortIds.includes(id))
   ) : cruises.filter(
-    cruise => cruise.ports_of_call.some(id => selectedPortIds.includes(id))
+    cruise => cruise.stops.some(id => selectedPortIds.includes(id))
   );
   // ports by search term
   const filteredPorts = searchTerm ? ports.filter(
