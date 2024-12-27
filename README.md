@@ -1,3 +1,6 @@
+## Localisation setup via
+[next-intl](https://next-intl.dev/docs/getting-started/app-router/with-i18n-routing)
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started

@@ -1,5 +1,6 @@
 'use client';
 import { useEffect, useState } from 'react';
+import {useTranslations} from 'next-intl';
 import styles from "./page.module.css";
 import CheckList from './components/checklist';
 
@@ -27,6 +28,8 @@ interface CruisesApiResponse {
 
 
 export default function Home() {
+
+  const t = useTranslations('HomePage');
 
   /* STATE */
   const [ports, setPorts] = useState<Port[] | []>([]);
@@ -90,7 +93,7 @@ export default function Home() {
   return (
     <div className={styles.page}>
       <main className={styles.main}>
-        <h1>Port name search</h1>
+        <h1>{t('title')}</h1>
         <input
           type="text"
           placeholder="Search ports..."
