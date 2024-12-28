@@ -6,6 +6,8 @@ import {notFound} from 'next/navigation';
 import {routing} from '@/i18n/routing';
 import "./globals.css";
 
+const supportedLocales = ['en', 'hu'] as const; // Replace with your actual locales
+type SupportedLocale = (typeof supportedLocales)[number];
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -16,7 +18,7 @@ const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
 });
- 
+
 export default async function LocaleLayout({
   children,
   params: {locale}
@@ -25,7 +27,7 @@ export default async function LocaleLayout({
   params: {locale: string};
 }) {
   // Ensure that the incoming `locale` is valid
-  if (!routing.locales.includes(locale as any)) {
+  if (!routing.locales.includes(locale as SupportedLocale)) {
     notFound();
   }
  
