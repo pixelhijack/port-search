@@ -1,22 +1,52 @@
 [
-    {
-      "port_id": 1,
-      "name": "Aarhus",
-      "raw_names": ["Aahrus", "Aarhus", "Aarhus - Denmark", "Aarhus, Denmark"]
-    },
-    {
-      "port_id": 2,
-      "name": "Abu Dhabi",
-      "raw_names": [
-        "Abu Dhabi",
-        "Abu Dhabi, UAE",
-        "Abu Dhabi, United Arab Emirates",
-        "Abu Dhabi, U.Arab Emirates"
-      ]
-    },
-    {
-      "port_id": 3,
-      "name": "Adelaide",
-      "raw_names": ["Adelaide", "Adelaide - Australia", "Adelaide, Australia"]
-    }
-  ]
+  {
+    "port_id": 1,
+    "name": "Barcelona",
+    "raw_names": ["Barcelona", "Barcelona - Spain", "Barcelona, Spain"]
+  },
+  {
+    "port_id": 2,
+    "name": "Valencia",
+    "raw_names": ["Valencia", "Valencia - Spain", "Valencia, Spain"]
+  },
+  {
+    "port_id": 3,
+    "name": "Palma de Mallorca",
+    "raw_names": ["Palma", "Palma de Mallorca", "Palma - Spain", "Mallorca, Spain"]
+  },
+  {
+    "port_id": 4,
+    "name": "Genoa",
+    "raw_names": ["Genoa", "Genova", "Genoa - Italy", "Genova, Italy"]
+  },
+  {
+    "port_id": 5,
+    "name": "Civitavecchia",
+    "raw_names": ["Civitavecchia", "Rome", "Civitavecchia - Italy", "Rome - Italy"]
+  },
+  {
+    "port_id": 6,
+    "name": "Valletta",
+    "raw_names": ["Valletta", "Valletta - Malta", "Valletta, Malta"]
+  },
+  {
+    "port_id": 7,
+    "name": "Tenerife",
+    "raw_names": ["Tenerife", "Santa Cruz de Tenerife", "Tenerife - Spain", "Santa Cruz, Canary Islands"]
+  },
+  {
+    "port_id": 8,
+    "name": "Las Palmas",
+    "raw_names": ["Las Palmas", "Gran Canaria", "Las Palmas - Spain", "Gran Canaria, Canary Islands"]
+  },
+  {
+    "port_id": 9,
+    "name": "Marseille",
+    "raw_names": ["Marseille", "Marseilles", "Marseille - France", "Marseilles, France"]
+  },
+  {
+    "port_id": 10,
+    "name": "Dubrovnik",
+    "raw_names": ["Dubrovnik", "Dubrovnik - Croatia", "Dubrovnik, Croatia"]
+  }
+]

@@ -42,10 +42,8 @@ export default function Home() {
   const selectedPortIds = selectedPorts.map(port => port.port_id);
   // one port selected: lists all cruise occurences with that port,
   // two/multiple ports selected: narrow down to only show that contains both
-  const cruisesByPorts = selectedPorts.length > 1 ? cruises.filter(
-    cruise => cruise.stops.every(id => selectedPortIds.includes(id))
-  ) : cruises.filter(
-    cruise => cruise.stops.some(id => selectedPortIds.includes(id))
+  const cruisesByPorts = cruises.filter(cruise =>
+    selectedPortIds.every(selectedId => cruise.stops.includes(selectedId))
   );
   // ports by search term
   const filteredPorts = searchTerm ? ports.filter(
@@ -88,8 +86,6 @@ export default function Home() {
     fetchCruises(); 
   }, []);
 
-  console.log(ports, cruises);
-
   return (
     <div className={styles.page}>
       <main className={styles.main}>
@@ -113,14 +109,21 @@ export default function Home() {
             </div>
             <div className='column'>
               <h2>Cruises</h2>
-              {cruises && (
+              {cruises && !!selectedPorts.length && (
                 cruisesByPorts.map(
-                  cruise => (<div key={cruise.cruise_id}>{cruise.name}</div>)
+                  cruise => (
+                    <div key={cruise.cruise_id}>
+                      <b>{cruise.name}</b>
+                      {cruise.stops.map((stop, i) => (
+                        <span key={i}>{i > 0 ? ' - ' : ': '}{ports.find(port => port.port_id === stop)?.name}</span>
+                      ))}
+                      <br/><br/><hr/><br/>
+                    </div>
+                  )
                 )
               )}
             </div>
           </div>
-          <hr/>
           {error && <p>Error: {error}</p>}
       </main>
     </div>

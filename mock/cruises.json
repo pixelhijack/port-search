@@ -1,17 +1,27 @@
 [
     {
       "cruise_id": 1,
-      "name": "Cruise 1",
-      "stops": [1, 2]
+      "name": "Mediterranean Explorer",
+      "stops": [1, 4, 5, 6, 9]
     },
     {
       "cruise_id": 2,
-      "name": "Cruise 2",
-      "stops": [2, 3]
+      "name": "Canary Islands Adventure",
+      "stops": [7, 8, 2, 3, 1]
     },
     {
       "cruise_id": 3,
-      "name": "Cruise 3",
-      "stops": [1, 3]
+      "name": "Adriatic Escape",
+      "stops": [10, 5, 4, 9, 1]
+    },
+    {
+      "cruise_id": 4,
+      "name": "Western Mediterranean Highlights",
+      "stops": [1, 2, 3, 9, 6]
+    },
+    {
+      "cruise_id": 5,
+      "name": "Eastern Mediterranean Discovery",
+      "stops": [6, 5, 4, 10]
     }
   ]
