@@ -1,6 +1,6 @@
 'use client';
 import { useEffect, useState } from 'react';
-import {useTranslations} from 'next-intl';
+import {useTranslations, useLocale} from 'next-intl';
 import styles from "./page.module.css";
 import CheckList from './components/checklist';
 
@@ -26,10 +26,10 @@ interface CruisesApiResponse {
   data: Cruise[];
 }
 
-
 export default function Home() {
 
   const t = useTranslations('HomePage');
+  const locale = useLocale(); 
 
   /* STATE */
   const [ports, setPorts] = useState<Port[] | []>([]);
@@ -55,7 +55,7 @@ export default function Home() {
   useEffect(() => {
     async function fetchPorts() {
       try {
-        const response = await fetch('/api/ports');
+        const response = await fetch(`/api/ports?locale=${locale}`);
         if (!response.ok) {
           throw new Error('[PORTS] Network response was not ok');
         }
