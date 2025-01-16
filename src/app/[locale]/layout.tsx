@@ -1,3 +1,4 @@
+import * as React from 'react'
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import {NextIntlClientProvider} from 'next-intl';
@@ -21,11 +22,13 @@ const geistMono = Geist_Mono({
 
 export default async function LocaleLayout({
   children,
-  params: {locale}
+  params
 }: {
   children: React.ReactNode;
-  params: {locale: string};
+  params: Promise<{locale:string}>;
 }) {
+  
+  const { locale } = await params;
   // Ensure that the incoming `locale` is valid
   if (!routing.locales.includes(locale as SupportedLocale)) {
     notFound();
